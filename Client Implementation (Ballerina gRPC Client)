@@ -1,0 +1,17 @@
+import ballerina/grpc;
+import ballerina/log;
+
+public function main() returns error? {
+    // Create a client
+    ShoppingServiceClient shoppingClient = check ShoppingServiceClient.create("localhost:8080");
+
+    // Example: Adding a new product
+    Product product = {name: "Laptop", description: "High performance laptop", price: 999.99, stock_quantity: 10, sku: "LAP123", available: true};
+    AddProductResponse addResponse = check shoppingClient.addProduct({product: product});
+    log:printInfo("Product added with SKU: " + addResponse.sku);
+
+    // Example: Listing available products
+    ListAvailableProductsResponse listResponse = check shoppingClient.listAvailableProducts();
+    log:printInfo("Available Products: " + listResponse.products.toString());
+}
+
