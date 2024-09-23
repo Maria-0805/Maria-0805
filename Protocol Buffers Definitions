@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package shopping;
+
+message Product {
+    string name = 1;
+    string description = 2;
+    float price = 3;
+    int32 stock_quantity = 4;
+    string sku = 5;
+    bool available = 6;
+}
+
+message User {
+    string user_id = 1;
+    string user_type = 2; // "customer" or "admin"
+}
+
+message AddProductRequest {
+    Product product = 1;
+}
+
+message AddProductResponse {
+    string sku = 1; // SKU of the added product
+}
+
+message UpdateProductRequest {
+    string sku = 1;
+    Product product = 2;
+}
+
+message RemoveProductRequest {
+    string sku = 1;
+}
+
+message RemoveProductResponse {
+    repeated Product products = 1; // Updated list of products
+}
+
+message ListAvailableProductsResponse {
+    repeated Product products = 1;
+}
+
+message SearchProductRequest {
+    string sku = 1;
+}
+
+message SearchProductResponse {
+    Product product = 1;
+    string message = 2; // Status message
+}
+
+message AddToCartRequest {
+    string user_id = 1;
+    string sku = 2;
+}
+
+message PlaceOrderRequest {
+    string user_id = 1;
+}
+
+message CreateUsersRequest {
+    repeated User users = 1;
+}
+
+message CreateUsersResponse {
+    string message = 1; // Confirmation message
+}
